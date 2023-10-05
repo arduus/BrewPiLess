@@ -59,7 +59,11 @@ var BWF = {
     connect: function() {
         var me = this;
         if (typeof WebSocket !== "undefined") {
-            var ws = new WebSocket('ws://' + document.location.host + '/ws');
+            var wsProtocol =  'ws://';
+            if (window.location.protocol === 'https:') {
+                wsProtocol =  'wss://';
+            }
+            var ws = new WebSocket(wsProtocol + document.location.host + '/ws');
             me.ws = ws;
             ws.onopen = function() {
                 console.log("Connected");
